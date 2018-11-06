@@ -1,0 +1,42 @@
+import requests
+url = 'https://www.vox.com/2018/9/25/17901082/trump-un-2018-speech-full-text'
+r = requests.get(url)
+data=str(r.text)
+data=data[92005:117345]
+data=data.lower()
+
+
+data=data.replace("'s "," '")
+data=data.replace('’s ',' ')
+data=data.replace('.',' ')
+data=data.replace(',',' ')
+data=data.replace('’',' ')
+data=data.replace('–',' ')
+data=data.replace('-',' ')
+data=data.replace(')',' ')
+data=data.replace('(',' ')
+data=data.replace('[',' ')
+data=data.replace(']',' ')
+data=data.replace('“',' ')
+data=data.replace('”',' ')
+data=data.replace('</p>',' ')
+data=data.replace('<p',' ')
+data=data.replace('id=',' ')
+data=data.replace('>',' ')
+data=data.replace(',',' ')
+data=data.replace('"',' ')
+data=data.replace("'"," ")
+data=data.replace('\n',' ')
+
+
+mydict={}
+words=data.split()
+
+for w in words:
+    if w in mydict:
+        mydict[w]+=1
+    else:
+        mydict[w]=1
+r=sorted(mydict,key=mydict.__getitem__,reverse=True)
+for k in r[:20]:
+    print('%s회:%s'%(mydict[k],k))
